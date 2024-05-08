@@ -1,0 +1,17 @@
+Dockerfile//
+FROM node:alpine
+COPY . /DOECKER
+CMD node /DOECKER/d.js
+
+d.js//
+  console.log("lawda lasan");
+
+terminal
+  docker build -t akash . 
+  docker images
+  docker run --name akasha akash
+
+docker ps
+docker pull openjdk
+docker run --name akash_java -it -d openjdk 
+docker exec -it akash_java jshell
