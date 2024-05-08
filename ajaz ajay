@@ -1,0 +1,117 @@
+index.html//
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Registration</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <h1>User Registration</h1>
+    <form id="registrationForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required />
+      <br />
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+      <br />
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
+      <br />
+      <button type="submit">Register</button>
+    </form>
+
+    <button id="fetchDataButton">Generate random data</button>
+
+    <script src="script.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
+users.html//
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users List</title>
+</head>
+<body>
+    <h1>Users List</h1>
+    <ul id="usersList"></ul>
+
+    <script>
+        const usersList = document.getElementById("usersList");
+        const usersData = JSON.parse(localStorage.getItem("usersData")) || [];
+
+        // Check if there is any user data available
+        if (usersData.length === 0) {
+            const noDataMessage = document.createElement("li");
+            noDataMessage.textContent = "No users registered yet.";
+            usersList.appendChild(noDataMessage);
+        } else {
+            // Iterate over each user data and create list items
+            usersData.forEach((userData) => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `Name: ${userData.name}, Email: ${userData.email}`;
+                usersList.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+scripts.js//
+const registrationForm = document.getElementById('registrationForm');
+const usersData = JSON.parse(localStorage.getItem('usersData')) || [];
+document.getElementById('fetchDataButton').addEventListener('click', function() {
+    fetchRandomUserData();
+});
+
+registrationForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const userData = { name, email, password };
+
+    // Store data in local storage
+    usersData.push(userData);
+    localStorage.setItem('usersData', JSON.stringify(usersData));
+
+    // Redirect to new page with data list
+    window.location.href = 'users.html'; // Replace with your HTML file
+});
+
+// function to get random user data from the internet and push that data into local storage.
+function fetchRandomUserData() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            const userData = JSON.parse(xhr.responseText);
+            const randomUser = userData[Math.floor(Math.random() * userData.length)];
+            const { name, email } = randomUser;
+            const user = { name, email };
+
+            const usersData = JSON.parse(localStorage.getItem('usersData')) || [];
+            usersData.push(user);
+            localStorage.setItem('usersData', JSON.stringify(usersData));
+
+            window.location.href = 'users.html'; // Redirect to new page with data list
+        } else {
+            console.error('Failed to fetch data:', xhr.statusText);
+        }
+    };
+    xhr.onerror = function() {
+        console.error('Failed to fetch data.');
+    };
+    xhr.send();
+}
