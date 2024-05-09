@@ -1,4 +1,4 @@
-index.html//
+index.html// inside public folder
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,7 +12,7 @@ index.html//
   </body>
 </html>
 
-server.js//
+server.js//outside public folder
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -57,3 +57,6 @@ const server = http.createServer((req, res) => {
 server.listen(PORT, () => {
     console.log(`Server is running on port http://localhost:${PORT}`);
 });
+
+terminal 
+node server.js
