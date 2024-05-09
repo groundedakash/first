@@ -1,0 +1,59 @@
+//index.html
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Mobile Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  </head>
+  <style>
+    /* Custom CSS */
+    .ui-page {
+      background-color: #f5f5f5;
+    }
+
+    .ui-header {
+      background-color: #333;
+      color: #fff;
+    }
+
+    .ui-btn {
+      background-color: #333;
+      color: #fff;
+    }
+  </style>
+  <body>
+    <!-- Your content goes here -->
+    <div data-role="page" id="home">
+      <div data-role="header">
+        <h1>Welcome</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <p>This is a simple mobile website created with jQuery Mobile.</p>
+        <a href="#about" class="ui-btn ui-corner-all">About</a>
+      </div>
+    </div>
+
+    <div data-role="page" id="about">
+      <div data-role="header">
+        <a href="#home" data-icon="carat-l">Back</a>
+        <h1>About</h1>
+      </div>
+      <div role="main" class="ui-content">
+        <p>This is the about page of our mobile website.</p>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        // Initialize jQuery Mobile
+        $("body").enhanceWithin();
+      });
+    </script>
+  </body>
+</html>
