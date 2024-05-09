@@ -1,0 +1,34 @@
+//index.py
+print 'Content-Type: text/plain'
+print ''
+print 'Hello there Friends'
+
+for x in range(1,11):
+	print '10 X ',x,' = ',10*x
+
+#Write code for fibonacci series
+
+first = 0 
+second = 1
+
+for x in range(1,8):
+	c = first+second
+	print c
+	
+	first = second
+	second = c
+
+//app.yaml
+application: sample
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /.*
+  script: index.py
+
+
+py google-cloud-sdk\bin\dev_appserver.py c:\Users\dml175\desktop
+
+	
